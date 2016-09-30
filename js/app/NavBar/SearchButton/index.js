@@ -21,24 +21,28 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+ 
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
-'use strict';
+import Theme from 'react.force.base.theme';
 
-import { StyleSheet } from 'react-native';
+import styles from './styles';
 
-module.exports = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
+module.exports = React.createClass({
+  handlePress(){
+    if(this.props.onPress){
+      this.props.onPress();
+    }
   },
-  searchBarInput: {
-    flex: 0,
-    fontSize: 18,
-    height: 40,
-    fontFamily: 'SalesforceSans-Regular',
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
+  render(){
+    return (
+        <TouchableOpacity onPress={this.handlePress}>
+          <Theme.Icons.Utility 
+            name="search" 
+            style={styles.icon} 
+            iconColor='#ffffff' />
+        </TouchableOpacity>
+    );
+  }
 });

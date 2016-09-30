@@ -21,24 +21,76 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+ 
+import React from 'react';
+import { View, TextInput, TouchableOpacity } from 'react-native';
+import Theme from 'react.force.base.theme';
+import styles from './styles';
 
-'use strict';
+module.exports = React.createClass({
 
-import { StyleSheet } from 'react-native';
+  getInitialState () {
+    return {
+      searchTerm: ''
+    };
+  },
 
-module.exports = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
+  _handleSearch(searchTerm) {
+    if(this.props.onSearch){
+      this.props.onSearch(searchTerm);
+    }
   },
-  searchBarInput: {
-    flex: 0,
-    fontSize: 18,
-    height: 40,
-    fontFamily: 'SalesforceSans-Regular',
+
+  _handleChange(value) {
+    this.setState({searchTerm:value});
+    if(value && value.length){
+      setTimeout((value)=>{
+        if(value && value === this.state.searchTerm){
+          return this._handleSearch(value);
+        }
+      },500,value);
+    }
+    else{
+      this._handleSearch('');
+    }
   },
-  icon: {
-    width: 24,
-    height: 24,
+
+  _handleClear() {
+    this.setState({searchTerm:''});
+    if(this.props.onClose){
+      this.props.onClose();
+    }
   },
+
+  _handleFocus() {
+    this.refs.input.focus();
+  },
+
+  render () {
+    return (
+      <View style={styles.container}>
+      <View style={styles.searchContainer}>
+
+        <TextInput
+          ref='input'
+          autoFocus={true}
+          autoCorrect={false}
+          onChangeText={this._handleChange}
+          placeholder="Search... "
+          style={styles.searchBarInput}
+          value={this.state.searchTerm}
+        />
+        <TouchableOpacity onPress={this._handleClear} style={styles.iconWrapper}>
+          <Theme.Icons.Utility 
+          key='close'
+            name="close" 
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+      </View>
+
+      </View>
+    );
+  }
+
 });

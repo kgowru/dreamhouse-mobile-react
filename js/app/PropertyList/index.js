@@ -29,36 +29,83 @@ import React from 'react';
 import {
   View,
   Text,
-  ListView
+  TextInput,
+  ListView,
+  LayoutAnimation
 } from 'react-native';
 
-import { ListContainer } from 'react.force.datacontainer';
+import { ListContainer, SearchQueryList } from 'react.force.datacontainer';
 
 import List from './List';
+
+import SearchBar from './SearchBar';
 
 import styles from './styles';
 
 module.exports = React.createClass({
 
-  render () {
-/*
-    return (
-      <ListContainer 
-        type='Property__c' 
-        fields={['Title__c']} 
-        where="City__c='Boston' OR City__c='Cambridge'"
-        style={styles.container}>
-        <List navigator={this.props.navigator} route={this.props.route} />
-      </ListContainer>
-    );
-*/
+  getInitialState () {
+    return {
+      searchTerm: ''
+    };
+  },
 
+  _handleSearch (searchTerm) {
+    this.setState({searchTerm:searchTerm});
+  },
+
+  _handleSearchClose () {
+    this.setState({
+      searchTerm:''
+    });
+    if(this.props.onSearchClose){
+      this.props.onSearchClose();
+    }
+  },
+
+  _renderList () {
+    if(this.state.searchTerm && this.state.searchTerm.length>3){
+      return (
+        <SearchQueryList 
+          type='Property__c'
+          searchTerm={this.state.searchTerm}
+          style={{flex:1}}>
+          <List navigator={this.props.navigator} route={this.props.route} />
+        </SearchQueryList>
+      );
+    }
     return (
       <ListContainer 
         type='Property__c'
         style={styles.container}>
         <List navigator={this.props.navigator} route={this.props.route} />
       </ListContainer>
+    );
+  },
+
+  _renderSearchBar () {
+    if(this.props.isSearchOpen){
+      return <SearchBar onSearch={this._handleSearch} onClose={this._handleSearchClose}/>
+    }
+  },
+
+  componentWillReceiveProps (nextProps) {
+    if(nextProps.isSearchOpen !== this.props.isSearchOpen){
+      if(nextProps.isSearchOpen){
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      }
+      else{
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+      }
+    }
+  },
+
+  render () {
+    return (
+      <View style={styles.container}>
+        { this._renderSearchBar() }
+        { this._renderList() }
+      </View>
     );
 
   }
