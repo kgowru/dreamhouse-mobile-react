@@ -1,17 +1,16 @@
 'use strict'
 
-require('react-native-mock/mock');
 import React from 'react';
 import {shallow} from 'enzyme';
 import {expect} from 'chai';
 
-import {sobjData} from '../../../test';
+import {sobjData} from '../../../../test/mockData';
 
 describe('<PropertyListItem/>', () => {
   let PropertyListItem;
 
   before(()=>{
-    PropertyListItem = require('../ListItem');
+    PropertyListItem = require('../index');
   })
 
   it('should return the right content from helper functions', () => {
