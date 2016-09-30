@@ -24,16 +24,7 @@ pod 'SalesforceReact'
 
 end
 
-
-
 target 'dreamhouse' do
-
-  shared_pods
-
-end
-
-
-target 'dreamhouse copy' do
 
   shared_pods
 
