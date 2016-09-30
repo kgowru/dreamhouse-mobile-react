@@ -29,7 +29,6 @@ describe('<ActionBar/>', () => {
       },
       net: {
         query: function(soql, callback, error) {
-          console.log('callin stub');
           netQueryCalled = true;
           callback({"records":[],"done":true,"totalSize":0});
         },
