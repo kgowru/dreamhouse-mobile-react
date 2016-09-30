@@ -5,12 +5,13 @@ import mockery from 'mockery';
 import {shallow} from 'enzyme';
 import {expect} from 'chai';
 
-import {sobjData, credsData} from '../../../../test/mockData';
+import {sobjData, credsData} from '../../../../testLib/mockData';
 
 describe('<ActionBar/>', () => {
   let ActionBar,
       netQueryCalled = false;
 
+  // mock react.force module
   before(()=>{
     global.__DEV__ = true;
 

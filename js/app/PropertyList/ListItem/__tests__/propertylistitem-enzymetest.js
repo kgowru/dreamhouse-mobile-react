@@ -4,7 +4,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {expect} from 'chai';
 
-import {sobjData} from '../../../../test/mockData';
+import {sobjData} from '../../../../testLib/mockData';
 
 describe('<PropertyListItem/>', () => {
   let PropertyListItem;
