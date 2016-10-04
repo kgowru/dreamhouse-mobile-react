@@ -21,7 +21,7 @@
   //[super setUp];
   // Put setup code here. This method is called before the invocation of each test method in the class.
   _runner = RCTInitRunnerForApp(@"js/testLib/snapshotTests", nil);
-  _runner.recordMode = YES;
+  _runner.recordMode = NO;
   
 }
 
