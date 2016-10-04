@@ -788,6 +788,7 @@
 				29154D9E1DA31DD7005BACC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4F8D5E981B6C0568005E64D4 /* Build configuration list for PBXProject "dreamhouse" */ = {
 			isa = XCConfigurationList;

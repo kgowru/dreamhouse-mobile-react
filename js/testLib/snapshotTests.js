@@ -28,7 +28,7 @@ componentsToTest.forEach((componentData, index) => {
   let Snapshotter = React.createClass({
     render() {
       return (
-        React.createElement(SnapshotViewIOS, null},
+        React.createElement(SnapshotViewIOS, null,
           React.createElement(componentData.component, componentData.props, null)
         )
       );
