@@ -32,6 +32,8 @@
 #import <SalesforceSDKCore/SFLogger.h>
 #import <SmartStore/SalesforceSDKManagerWithSmartStore.h>
 
+#import <CoreLocation/CoreLocation.h>
+
 #include "TargetConditionals.h"
 
 // Fill these in when creating a new Connected Application on Force.com
@@ -82,6 +84,7 @@ static NSString * const OAuthRedirectURI        = @"testsfdc:///mobilesdk/detect
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.launchOptions = launchOptions;
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self initializeAppViewState];
@@ -96,6 +99,12 @@ static NSString * const OAuthRedirectURI        = @"testsfdc:///mobilesdk/detect
     //loginViewController.navBarTextColor = [UIColor blackColor];
     //
     [[SalesforceSDKManager sharedManager] launch];
+    
+    // Fix geocoder not loading issue when used from RN
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:@""
+                 completionHandler:^(NSArray* placemarks, NSError* error){
+                 }];
     return YES;
 }
 
